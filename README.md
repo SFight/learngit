@@ -17,3 +17,10 @@
   ```git
   git config --global http.postBuffer 524288000
   ```
+# 2018-08-06 因为修改了submodule的内容，导致主工程出现submodule的status中提示了submodule内有内容修改的提示，需要提交
+  今天在修改自己写的一个阅读器代码的时候，对submodule修改了测试代码，后边又修改回去了，但是在主工程中出现了提示，需要提交，后来发现，实际上是对submodule的使用不太对，应该是纯readonly的引用才对。
+  通过修改.gitmodules，对相应的submodule添加ignore字段，字段的内容可以有三个，如下：
+  untracked ：忽略 在子模块B(也就是projectB目录)新添加的，未受版本控制内容
+  dirty ： 忽略对projectB目录下受版本控制的内容进行了修改
+  all ： 同时忽略untracked和dirty
+  我这里直接修改成all，因为是只读引用，忽略主工程内的所有需要提交的东西。
